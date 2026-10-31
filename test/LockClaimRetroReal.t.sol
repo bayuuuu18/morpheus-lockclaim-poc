@@ -67,7 +67,9 @@ contract LockClaimRetroRealTest is Test {
     address honest = makeAddr("honestLocker");
 
     function setUp() public {
-        vm.createSelectFork("https://ethereum-rpc.publicnode.com", FORK_BLOCK);
+        // Default RPC is a public endpoint that serves archive state at the
+        // pinned block (verified). Override with ETH_RPC_URL if needed.
+        vm.createSelectFork(vm.envOr("ETH_RPC_URL", string("https://eth.drpc.org")), FORK_BLOCK);
     }
 
     function test_AgedPositionLockClaimInflatesWeight() public {
